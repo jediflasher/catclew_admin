@@ -9,4 +9,18 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-CatclewAdmin::Application.config.secret_key_base = 'a4accec6fec976f33a3a16c7731416e1a67400e5ad8a3cd3af42069669785d92c497a3845321dc365d751f7cddaed450cbaf95e19ab92acc84b2fc2325e9ecb5'
+
+def secure_token
+  token_file = Rails.root.join('.secret')
+  if File.exist?(token_file)
+    # Use the existing token.
+    File.read(token_file).chomp
+  else
+    # Generate a new token and store it in token_file.
+    token = SecureRandom.hex(64)
+    File.write(token_file, token)
+    token
+  end
+end
+
+CatclewAdmin::Application.config.secret_key_base = secure_token

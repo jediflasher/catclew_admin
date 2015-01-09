@@ -6,6 +6,7 @@ gem 'rails', '4.0.2'
 # Use postgresql as the database for Active Record
 group :development do
   gem 'sqlite3'
+  gem 'rspec-rails'
 end
 
 group :production do
