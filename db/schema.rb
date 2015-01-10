@@ -13,11 +13,11 @@
 
 ActiveRecord::Schema.define(version: 20150110093528) do
 
-  create_table "game_data", force: true do |t|
-    t.text     "dict"
-    t.text     "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table 'game_data', force: true do |t|
+    t.text     'dict'
+    t.text     'state'
+    t.datetime 'created_at'
+    t.datetime 'updated_at'
   end
 
 end
