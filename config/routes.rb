@@ -1,4 +1,16 @@
 CatclewAdmin::Application.routes.draw do
+
+
+  root to: redirect('/dict')
+
+  get '/dict' => 'game_data#dict'
+  post '/dict' => 'game_data#save_dict'
+  get '/dict.json' => 'game_data#dict'
+
+  get '/state' => 'game_data#state'
+  post '/state' => 'game_data#save_state'
+  get '/state.json' => 'game_data#state'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

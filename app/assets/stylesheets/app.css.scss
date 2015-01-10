@@ -1,0 +1,15 @@
+@import "bootstrap";
+
+body {
+  @extend .v-margin, .h-margin
+}
+
+.v-margin {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.h-margin {
+  margin-left: 10px;
+  margin-right: 10px;
+}
