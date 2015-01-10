@@ -1,17 +1,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>
     var editor;
+    var isJSONValid = true;
+    var saving = false;
 
     $(function(){
-        editor = ace.edit("editor");
-        editor.setTheme("ace/theme/eclipse");
-        editor.getSession().setMode("ace/mode/json");
-        editor.setAutoScrollEditorIntoView(true);
-//        editor.setOption("maxLines", 50);
-
-        $('#label_save_success').hide();
-        $('#label_save_error').hide();
-
         var btn = $('#save');
         btn.click(function() {
             var ok = confirm('Сохранить?');
@@ -22,6 +15,27 @@
                 save();
             }
         });
+
+
+        editor = ace.edit("editor");
+        editor.setTheme("ace/theme/eclipse");
+
+        var session = editor.getSession();
+        session.setMode("ace/mode/json");
+        session.on("changeAnnotation", function(){
+            var annotations = session.getAnnotations();
+            isJSONValid = true;
+
+            for (var key in annotations){
+                isJSONValid = false;
+                break;
+            }
+
+            if (!saving) isJSONValid ? btn.removeClass('disabled') : btn.addClass('disabled');
+        });
+
+        $('#label_save_success').hide();
+        $('#label_save_error').hide();
     });
 
     function save() {
