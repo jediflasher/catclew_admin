@@ -23,7 +23,9 @@
         var session = editor.getSession();
         session.setMode("ace/mode/json");
         editor.setOptions({
-            enableBasicAutocompletion: true
+            enableBasicAutocompletion: true,
+            enableSnippets: true,
+            enableLiveAutocompletion: false
         });
 
         session.on("changeAnnotation", function(){

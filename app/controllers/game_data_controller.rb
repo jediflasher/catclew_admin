@@ -13,11 +13,11 @@ class GameDataController < ApplicationController
 
   # POST /dict
   def save_dict
-    json = request.body.read
-    record = GameData.all.first
-    record[:dict] = json
-    record.save
-    render json: json
+    _json = request.body.read
+    _record = GameData.all.first
+    _record[:dict] = _json
+    _record.save
+    render json: _json
   end
 
   # GET /state
@@ -33,11 +33,26 @@ class GameDataController < ApplicationController
 
   # POST /state
   def save_state
-    json = request.body.read
-    record = GameData.all.first
-    record[:state] = json
-    record.save
+    _json = request.body.read
+    _record = GameData.all.first
+    _record[:state] = _json
+    _record.save
 
-    render json: json
+    render json: _json
+  end
+
+  # GET /game
+  def game
+  end
+
+  # GET /game/assets/:path
+  def assets
+    _path = 'public/assets/game'
+    _files = Dir.glob("#{_path}/sounds/*.*") + (Dir.glob("#{_path}/graphics/*.*").delete_if { |element| element.include?('icon') })
+    _files += Dir.glob("#{_path}/graphics/#{params[:path]}/**/*.*")
+
+    _files.map { |element| element['public/'] = '' }
+
+    render json: _files
   end
 end
