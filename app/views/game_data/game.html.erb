@@ -5,7 +5,10 @@
   // To use express install, set to playerProductInstall.swf, otherwise the empty string.
   var xiSwfUrlStr = "<%= asset_path('playerProductInstall.swf') %>";
   var flashvars = {};
-  flashvars.url = document.URL;
+  flashvars.url = window.location.protocol + '//' + window.location.host;
+
+  var port = ':' + window.location.port;
+  if (flashvars.url.indexOf(port) == -1) flashvars.url += port;
 
   var params = {};
   params.quality = "high";
