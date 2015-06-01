@@ -46,6 +46,14 @@
             session.setValue(JSON.stringify(JSON.parse(code), null, '\t'));
         });
 
+        $('#expand').click(function() {
+            session.unfold(2, true);
+        });
+
+        $('#collapse').click(function(){
+            session.foldAll(1, 10000);
+        });
+
         $('#label_save_success').hide();
         $('#label_save_error').hide();
     });
@@ -75,6 +83,16 @@
         $('#save').removeClass('disabled').text('Сохранить');
     }
 </script>
+
+<br>
+<div role="group">
+  <button id="collapse" type="button" class="btn btn-info btn-xs">
+    Cвернуть ↑
+  </button>
+  <button id="expand" type="button" class="btn btn-info btn-xs">
+    Развернуть ↓
+  </button>
+</div>
 
 <div id="editor"><%= @json %></div>
 
