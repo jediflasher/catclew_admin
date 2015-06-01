@@ -16,7 +16,6 @@
             }
         });
 
-
         editor = ace.edit("editor");
         editor.setTheme("ace/theme/eclipse");
 
@@ -27,6 +26,8 @@
             enableSnippets: true,
             enableLiveAutocompletion: false
         });
+        session.setTabSize(4);
+        session.setUseWrapMode(true);
 
         session.on("changeAnnotation", function(){
             var annotations = session.getAnnotations();
@@ -38,6 +39,11 @@
             }
 
             if (!saving) isJSONValid ? btn.removeClass('disabled') : btn.addClass('disabled');
+        });
+
+        $('#format').click(function() {
+            var code = session.getValue();
+            session.setValue(JSON.stringify(JSON.parse(code), null, '\t'));
         });
 
         $('#label_save_success').hide();
@@ -72,7 +78,10 @@
 
 <div id="editor"><%= @json %></div>
 
-<div class="btn-group" role="group">
+<div role="group">
+  <button id="format" type="button" class="btn btn-success">
+    Форматировать
+  </button>
   <button id="save" type="button" class="btn btn-default" value="<%= @post_url %>">
     Сохранить
   </button>
